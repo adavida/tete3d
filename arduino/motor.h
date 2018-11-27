@@ -7,9 +7,9 @@
 class motor
 {
   public:
-    motor(int p1, int p2, int p3, int p4);
-    void go(long );             // donne l'autre de passé un pas
-    void go_pas(long count, long pas_t); // donne un nombres de pas
+    motor(int, int, int, int);
+    bool go( );             // donne l'autre de passé un pas
+    void go_pas(long , long); // donne un nombres de pas
     long get_pas_o();           // retourne le nombres de pas vers l'origine
     void reset_o();             // resinisalise la possition d'origine
     void go_to_o();             // retourne à la possition origine

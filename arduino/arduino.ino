@@ -8,9 +8,12 @@
 SoftwareSerial blt(2, 3);
 motor M1(12,11,10,9);
 motor M2(7,6,5,4);
+myfifo fifo;
 
 unsigned long t0;
 long pos = 0;
+bool pause = false;
+
 void setup() {
     blt.begin(9600);
     Serial.begin(115200);
@@ -29,14 +32,30 @@ void loop() {
     read_serial();
   else 
     read_bt();
-  M1.go(pos);
-  M2.go(pos);
+  if(pause==false){
+    bool m1t = M1.go()==false;
+    bool m2t = M2.go()==false;
+    if( m1t or m2t ) {
+      if(fifo.as_element()){
+        fifo_data data = fifo.pop();
+        switch(data.c){
+          case 'd':
+          case 'D': M1.go_to_o(); M2.go_to_o(); break;
+          case 'g':
+          case 'G': 
+                    pos=0;
+                    M1.go_pas(data.p1, data.p3);
+                    M2.go_pas(data.p2, data.p3);
+                    break;
+
+        }
+      }
+    }
+  }
   pos +=1;
   t0+= TOP;
   long de = (t0-micros())/1000L;
-  Serial.println(de);
-  if(de<TOP)
-    delay(de); 
+  if(de<TOP) delay(de);
 }
 
 void read_serial(){
@@ -50,9 +69,6 @@ void read_serial(){
     }
   }
   Serial.flush();
-/*  if (msg != "") {
-    blt.print(msg);
-  }*/
   if(msg!="")
     cmd(msg);
 }
@@ -64,7 +80,6 @@ void read_bt(){
       if (blt.available() > 0) {
         char c = blt.read();
         ans += c;
-  
       }
     }
     blt.flush();
@@ -94,24 +109,27 @@ void cmd(String ans){
         else 
           break;
       }
-
       switch(ans[0]){
-        case 'c':
-        case 'C': M1.reset_o(); M2.reset_o(); break;
-        case 'd':
-        case 'D': M1.go_to_o(); M2.go_to_o(); break;
-        case 'g':
-        case 'G': 
-                  pos=0;
-                  M1.go_pas(pas[0], pas[2]);
-                  M2.go_pas(pas[1], pas[2]);
-                  break;
+        case 'p': 
+        case 'P': 
+              pause = !pause;
+              break;
+        case 'r':
+        case 'R': 
+              M1.reset_o();
+              M2.reset_o();
+              fifo.empty();
+              pause = false; 
+              break;
         case 't':
-            Serial.print("pas : ");
-            Serial.print(M1.get_pas_o());
-            Serial.print(' ');
-            Serial.print(M2.get_pas_o());
-            Serial.println(' ');
+        case 'T':
+              Serial.print("pas : ");
+              Serial.print(M1.get_pas_o());
+              Serial.print(' ');
+              Serial.print(M2.get_pas_o());
+              Serial.println(' ');
+              break;
+        default : fifo.push(ans[0],pas[0], pas[1], pas[2]);
       }
-    }  
+    }
 }

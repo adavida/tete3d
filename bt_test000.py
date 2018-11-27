@@ -47,10 +47,12 @@ class apps:
 #        self.list_el["pas"]    = tk.Spinbox(self.windows, from_=0, to=10000, 
 #                                            increment=100)
 #        self.list_el["pas"].grid(row=1, column=1)
+        self.list_el["pause"] = tk.Button(self.windows, text="pause",
+                                    command=lambda: self.send_data("p", False))
+        self.list_el["pause"].grid(row=0, column=3)
         self.list_el["zero"] = tk.Button(self.windows, text="reset origine",
-                                    command=lambda: self.send_data("c", False))
-        self.list_el["zero"].grid(row=1, column=3)
-        
+                                    command=lambda: self.send_data("r", False))
+        self.list_el["zero"].grid(row=1, column=3)        
         self.list_el["zeroA"] = tk.Button(self.windows, text="go to origine",
                                     command=lambda: self.send_data("d", False))
         self.list_el["zeroA"].grid(row=2, column=3)

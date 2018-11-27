@@ -19,8 +19,9 @@ void motor::go_pas(long count, long pas_t){
   _pos_t  = 0;
 }
 
-void motor::go(long pos){
+bool motor::go(){
   int mode;
+  if (_pos_t == _pas_t) return false;
   long p = (_pos_t * _go_pas)/_pas_t ;
   _pos_t++;
   if(_pos_p == p){
@@ -46,6 +47,7 @@ void motor::go(long pos){
       digitalWrite(_l[i], _data[_pos][i]);
     }
   }
+  return true;
 }
 
 long motor::get_pas_o(){
