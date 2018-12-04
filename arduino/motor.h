@@ -13,6 +13,8 @@ class motor
     long get_pas_o();           // retourne le nombres de pas vers l'origine
     void reset_o();             // resinisalise la possition d'origine
     void go_to_o();             // retourne à la possition origine
+    void go_continue(int);
+    void chmode(int);           // change de mode
   private:
     int _l[4];                  // pin utiliser par le moteur
     int _pos;                   // possition dans le cycle
@@ -21,6 +23,7 @@ class motor
     long _pos_t=0;              // compte dans cycle
     long _pas_from_o=0;         // position depuis l'origne
     long _go_pas = 0;           // nombre de mouvement total
+    int _mode = 0;                // mode defonctionnement 0-> nombres de pas et 1-> continue
     bool _data[MOTOR_PAS][MOTOR_PIN]={
       {true,false,false,false},
       {true,true,false,false},

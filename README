@@ -1,0 +1,15 @@
+Si on veut utiliser la connexion série sur le Bluetooth : supprimer la ligne 1 : "#define SOFTSERIAL"
+
+Liste des commandes :
+
+p      : Pause/reprendre.
+
+sn m   : Mode continue n => panoramique, m=> inclinaison, si = 0 => moteur arrêté, autre valeur nombres cycle 
+            par pas (1,-1 vitesse la plus rapide) supprime tous les éléments en attente.
+
+gn m o : Mode commandé les moteurs font le nombres de pas à demander. n=>nombres pas panoramique, 
+            m=> inclinaison, o => nombre de cycle du mouvement avec n>o et m>o
+
+d      : Retourne à la position d'origine.
+
+r      : Réinitialise la position d'origine, supprime tous les mouvements.
