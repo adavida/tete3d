@@ -1,0 +1,11 @@
+Si on veu utilisé la connection serial sur le bluetooth :  juste supprimer la ligne 1 : "#define SOFTSERIAL"
+
+Liste des commande série :
+
+p       pause/reprendre
+sn m    mode continue n => panauramique, m=> inclinaison, si = 0 => moteur arrété si nom valuer nombres clycle 
+            par pas (1,-1 vitesse la plus rapide) supprime tout les éléments en attente
+gn m o  mode commandé les moteurs font le nombres de pas demaner. n=>nombres pas panauramique, 
+            m=> inclinaison, o => nombres de clycles du mouvements avec n>o et m>o
+d       reviens à la possition d'origine
+r       reinsitialie la possition d'origine, supprime tout les mouvements 
