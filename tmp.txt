@@ -1,0 +1,15 @@
+
+void myfifo::test(){
+    push('a',(long)1,(long)2,(long)3);
+    delay(1);
+    push('b',1,2,3);
+    delay(1);
+    push('c',1,2,3);
+    fifo_data t = pop();
+    Serial.print("cmd ");
+    Serial.println(t.c);
+    t = pop();
+    Serial.print("cmd ");
+    Serial.println(t.c);
+    Serial.println("loop :");
+}

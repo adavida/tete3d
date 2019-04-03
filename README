@@ -1,3 +1,5 @@
+Pour les pièces en 3d : https://www.thingiverse.com/thing:3254666
+
 Si on veut utiliser la connexion série sur le Bluetooth : supprimer la ligne 1 : "#define SOFTSERIAL"
 
 Liste des commandes :

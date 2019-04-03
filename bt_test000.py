@@ -16,6 +16,7 @@ bt_name = 'HC-05'
 pas_pan = 24576
 pas_tilt = 24576
 
+
 class apps:
     def __init__(self, bt_address):
         self.list_el = {}
@@ -25,7 +26,7 @@ class apps:
         self.windows = tk.Tk()
         port = 1
 
-        self.sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+        self.sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM) 
         self.sock.connect((bt_address, port))
         self.sock.settimeout(1.0)
 
@@ -36,6 +37,7 @@ class apps:
         self.list_el["haut"] = tk.Button(self.windows, text="haut")
         self.list_el["haut"].grid(row=0, column=1)
         self.list_el["bas"] = tk.Button(self.windows, text="bas")
+
         self.list_el["bas"].grid(row=2, column=1)
 
         self.list_el["pause"] = tk.Button(self.windows, text="pause",
